@@ -51,8 +51,8 @@ export default function DisplayBoard() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.header}><div style={styles.headerTitle}>웹 문의</div></div>
-      <div style={styles.subHeader}>웹문의 보기</div>
+      <div style={styles.header}><div style={styles.headerTitle}>무엇이든 물어보세요!</div></div>
+      <div style={styles.subHeader}>질문 보기</div>
       <div style={styles.tableWrapper}>
         <table style={styles.table}>
           <thead>
