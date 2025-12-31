@@ -19,9 +19,7 @@ export default function DisplayBoard() {
       );
       const data = await res.json();
       if (data) setPosts(data);
-    } catch (e) {
-      console.error("데이터 로딩 실패");
-    }
+    } catch (e) { console.error("데이터 로딩 실패"); }
   };
 
   useEffect(() => {
@@ -32,16 +30,13 @@ export default function DisplayBoard() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.header}>
-        <div style={styles.headerTitle}>웹 문의</div>
-      </div>
+      <div style={styles.header}><div style={styles.headerTitle}>웹 문의</div></div>
       <div style={styles.subHeader}>웹문의 보기</div>
-
       <div style={styles.tableWrapper}>
         <table style={styles.table}>
           <thead>
             <tr style={styles.thRow}>
-              <th style={{ width: '10%' }}>문의번호</th>
+              <th style={{ width: '10%' }}>번호</th>
               <th style={{ width: '15%' }}>작성자</th>
               <th style={{ width: '60%' }}>문의제목</th>
               <th style={{ width: '15%' }}>작성일</th>
@@ -54,7 +49,7 @@ export default function DisplayBoard() {
                 <td style={styles.tdCenter}>{post.category || '익명'}</td>
                 <td style={styles.tdTitle}>{post.title}</td>
                 <td style={styles.tdCenter}>
-                  {new Date(post.created_at).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' }).replace(/\. /g, '.')} {new Date(post.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+                  {new Date(post.created_at).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' }).replace(/\. /g, '.')}
                 </td>
               </tr>
             ))}
@@ -76,7 +71,9 @@ export default function DisplayBoard() {
               <div style={styles.infoValueNo}>{selectedPost.id}</div>
             </div>
             <div style={styles.modalBody}>
-              <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{selectedPost.title}</p>
+              <p style={{ margin: 0, whiteSpace: 'pre-wrap', color: '#000' }}>
+                {selectedPost.content || '내용이 없습니다.'}
+              </p>
             </div>
             <div style={styles.modalFooter}>
               <button style={styles.backBtn} onClick={() => setSelectedPost(null)}>뒤로</button>
@@ -100,7 +97,7 @@ const styles = {
   tdCenter: { textAlign: 'center', fontSize: '13px' },
   tdTitle: { paddingLeft: '15px', fontSize: '15px', color: '#f7d358', textDecoration: 'underline' },
   modalOverlay: { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 },
-  modalContent: { width: '650px', backgroundColor: '#fff', border: '2px solid #4a9eff', boxShadow: '0 0 20px #000' },
+  modalContent: { width: '95%', maxWidth: '650px', backgroundColor: '#fff', border: '2px solid #4a9eff', boxShadow: '0 0 20px #000' },
   modalInfoGrid: { display: 'grid', gridTemplateColumns: '80px 1fr 80px 120px 80px 60px', backgroundColor: '#1a244d', borderBottom: '2px solid #4a9eff' },
   infoLabel: { backgroundColor: '#2b3974', padding: '10px', borderRight: '1px solid #4a9eff', borderBottom: '1px solid #4a9eff', color: '#4a9eff', fontSize: '12px', textAlign: 'center' },
   infoValue: { gridColumn: '2 / 7', padding: '10px', borderBottom: '1px solid #4a9eff', color: '#fff', fontSize: '14px' },
@@ -108,7 +105,7 @@ const styles = {
   infoValueStatus: { padding: '10px', color: '#00ff00', fontSize: '13px', fontWeight: 'bold', borderRight: '1px solid #4a9eff', borderBottom: '1px solid #4a9eff', textAlign: 'center' },
   infoLabelNo: { backgroundColor: '#2b3974', padding: '10px', borderRight: '1px solid #4a9eff', borderBottom: '1px solid #4a9eff', color: '#4a9eff', fontSize: '12px', textAlign: 'center' },
   infoValueNo: { padding: '10px', color: '#fff', fontSize: '13px', textAlign: 'center', borderBottom: '1px solid #4a9eff' },
-  modalBody: { padding: '40px', minHeight: '250px', color: '#000', fontSize: '16px', lineHeight: '1.6', backgroundColor: '#fff' },
+  modalBody: { padding: '30px', minHeight: '200px', color: '#000', fontSize: '16px', lineHeight: '1.6', backgroundColor: '#fff' },
   modalFooter: { backgroundColor: '#1a244d', padding: '12px', display: 'flex', justifyContent: 'flex-end' },
   backBtn: { background: 'linear-gradient(to bottom, #4a5a8a 0%, #1a244d 100%)', color: '#fff', border: '1px solid #aaa', padding: '6px 25px', cursor: 'pointer', fontWeight: 'bold' }
 };
