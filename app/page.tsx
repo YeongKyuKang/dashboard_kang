@@ -80,9 +80,8 @@ export default function RootWritePage() {
   );
 }
 
-// CSSProperties 타입을 사용하여 TS 에러 해결
 const styles: { [key: string]: CSSProperties } = {
-  body: { backgroundColor: '#2b3974', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: '"Dotum", sans-serif' },
+  body: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Dotum, sans-serif' },
   container: { width: '90%', maxWidth: '500px', backgroundColor: '#1a244d', border: '2px solid #4a9eff', boxShadow: '0 0 20px rgba(0,0,0,0.5)', overflow: 'hidden' },
   topBar: { background: 'linear-gradient(to bottom, #1e2a5a 0%, #0a0e2a 100%)', borderBottom: '2px solid #5a6fb3', padding: '12px', textAlign: 'center' },
   topBarTitle: { color: '#e2f1ff', fontSize: '20px', fontWeight: 'bold', textShadow: '0 0 8px #4a9eff', letterSpacing: '3px' },
