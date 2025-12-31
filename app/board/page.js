@@ -28,6 +28,27 @@ export default function DisplayBoard() {
     return () => clearInterval(timer);
   }, []);
 
+  // 날짜 포맷 함수 (리스트용: 12.31 16:20)
+  const formatListDate = (dateStr) => {
+    const d = new Date(dateStr);
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const h = String(d.getHours()).padStart(2, '0');
+    const i = String(d.getMinutes()).padStart(2, '0');
+    return `${m}.${day} ${h}:${i}`;
+  };
+
+  // 날짜 포맷 함수 (팝업용: 2025.12.31 16:20)
+  const formatDetailDate = (dateStr) => {
+    const d = new Date(dateStr);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const h = String(d.getHours()).padStart(2, '0');
+    const i = String(d.getMinutes()).padStart(2, '0');
+    return `${y}.${m}.${day} ${h}:${i}`;
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.header}><div style={styles.headerTitle}>웹 문의</div></div>
@@ -48,9 +69,7 @@ export default function DisplayBoard() {
                 <td style={styles.tdCenter}>{post.id}</td>
                 <td style={styles.tdCenter}>{post.category || '익명'}</td>
                 <td style={styles.tdTitle}>{post.title}</td>
-                <td style={styles.tdCenter}>
-                  {new Date(post.created_at).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' }).replace(/\. /g, '.')}
-                </td>
+                <td style={styles.tdCenter}>{formatListDate(post.created_at)}</td>
               </tr>
             ))}
           </tbody>
@@ -69,6 +88,8 @@ export default function DisplayBoard() {
               <div style={styles.infoValueStatus}>확인완료</div>
               <div style={styles.infoLabelNo}>문의번호</div>
               <div style={styles.infoValueNo}>{selectedPost.id}</div>
+              <div style={styles.infoLabelDate}>작성일</div>
+              <div style={styles.infoValueDate}>{formatDetailDate(selectedPost.created_at)}</div>
             </div>
             <div style={styles.modalBody}>
               <p style={{ margin: 0, whiteSpace: 'pre-wrap', color: '#000' }}>
@@ -105,6 +126,8 @@ const styles = {
   infoValueStatus: { padding: '10px', color: '#00ff00', fontSize: '13px', fontWeight: 'bold', borderRight: '1px solid #4a9eff', borderBottom: '1px solid #4a9eff', textAlign: 'center' },
   infoLabelNo: { backgroundColor: '#2b3974', padding: '10px', borderRight: '1px solid #4a9eff', borderBottom: '1px solid #4a9eff', color: '#4a9eff', fontSize: '12px', textAlign: 'center' },
   infoValueNo: { padding: '10px', color: '#fff', fontSize: '13px', textAlign: 'center', borderBottom: '1px solid #4a9eff' },
+  infoLabelDate: { backgroundColor: '#2b3974', padding: '10px', borderRight: '1px solid #4a9eff', color: '#4a9eff', fontSize: '12px', textAlign: 'center' },
+  infoValueDate: { gridColumn: '2 / 5', padding: '10px', color: '#fff', fontSize: '13px' },
   modalBody: { padding: '30px', minHeight: '200px', color: '#000', fontSize: '16px', lineHeight: '1.6', backgroundColor: '#fff' },
   modalFooter: { backgroundColor: '#1a244d', padding: '12px', display: 'flex', justifyContent: 'flex-end' },
   backBtn: { background: 'linear-gradient(to bottom, #4a5a8a 0%, #1a244d 100%)', color: '#fff', border: '1px solid #aaa', padding: '6px 25px', cursor: 'pointer', fontWeight: 'bold' }
