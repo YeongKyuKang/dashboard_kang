@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
 
 export default function WritePage() {
   const [text, setText] = useState('');
@@ -10,24 +9,35 @@ export default function WritePage() {
     e.preventDefault();
     if (!text.trim() || loading) return;
     setLoading(true);
-    const { error } = await supabase.from('posts').insert([{ title: text, category: '질문' }]);
-    if (error) alert('실패했습니다.');
-    else { alert('등록 완료!'); setText(''); }
+
+    // 라이브러리 없이 직접 API 호출
+    await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/posts`, {
+      method: 'POST',
+      headers: {
+        'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title: text, category: '질문' })
+    });
+
+    alert('질문이 등록되었습니다!');
+    setText('');
     setLoading(false);
   };
 
   return (
     <div style={{ padding: '20px', maxWidth: '500px', margin: '0 auto' }}>
-      <h2>실시간 질문하기</h2>
+      <h2 style={{ textAlign: 'center' }}>질문하기</h2>
       <form onSubmit={handleSubmit}>
         <textarea 
           value={text} 
           onChange={(e) => setText(e.target.value)}
-          placeholder="질문을 입력하세요"
-          style={{ width: '100%', height: '150px', padding: '10px', marginBottom: '10px' }}
+          placeholder="여기에 질문을 입력하세요"
+          style={{ width: '100%', height: '150px', padding: '15px', borderRadius: '10px', border: '1px solid #ddd' }}
         />
-        <button disabled={loading} style={{ width: '100%', padding: '15px', background: '#000', color: '#fff' }}>
-          보내기
+        <button disabled={loading} style={{ width: '100%', padding: '15px', background: '#000', color: '#fff', border: 'none', borderRadius: '10px', marginTop: '10px', cursor: 'pointer', fontWeight: 'bold' }}>
+          {loading ? '보내는 중...' : '보내기'}
         </button>
       </form>
     </div>

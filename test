@@ -1,0 +1,28 @@
+const insertTestData = async (count) => {
+  const URL = "https://gsjvpolhewghttbcfhus.supabase.co/rest/v1/posts"; // .env.local에 있는 URL로 교체
+  const KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzanZwb2xoZXdnaHR0YmNmaHVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcxMjU4NjgsImV4cCI6MjA4MjcwMTg2OH0.wLCOmXfAaMFbWboJHcY7Ku2OeSWSKQ8zCZWl-RZq22E"; // .env.local에 있는 KEY로 교체
+
+  console.log(`${count}개의 데이터 입력을 시작합니다...`);
+
+  for (let i = 1; i <= count; i++) {
+    await fetch(URL, {
+      method: 'POST',
+      headers: {
+        'apikey': KEY,
+        'Authorization': `Bearer ${KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        title: `${i}번째 자동 생성된 테스트 질문입니다.`, 
+        category: '테스트' 
+      })
+    });
+    
+    if (i % 10 === 0) console.log(`${i}개 완료...`);
+  }
+
+  console.log("모든 데이터 입력이 완료되었습니다!");
+};
+
+// 100개 실행
+insertTestData(100);
