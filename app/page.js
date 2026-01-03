@@ -13,7 +13,7 @@ export default function RootWritePage() {
     const lastWriteTime = localStorage.getItem('lastWriteTime');
     if (lastWriteTime) {
       const diff = Math.floor((Date.now() - parseInt(lastWriteTime)) / 1000);
-      if (diff < 30) setTimeLeft(30 - diff);
+      if (diff < 15) setTimeLeft(15 - diff);
     }
   }, []);
 

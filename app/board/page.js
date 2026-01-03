@@ -10,7 +10,7 @@ export default function DisplayBoard() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('active'); // 'active'(미처리) | 'archived'(보관됨) | 'all'(전체)
   const [totalCount, setTotalCount] = useState(0);
-  const ITEMS_PER_PAGE = 10; // 페이지당 보여줄 개수
+  const ITEMS_PER_PAGE = 20; // 페이지당 보여줄 개수
 
   // 데이터 불러오기 함수
   const fetchPosts = async () => {
