@@ -13,7 +13,8 @@ export default function RootWritePage() {
     const lastWriteTime = localStorage.getItem('lastWriteTime');
     if (lastWriteTime) {
       const diff = Math.floor((Date.now() - parseInt(lastWriteTime)) / 1000);
-      if (diff < 15) setTimeLeft(15 - diff);
+      // [수정] 새로고침 시 대기 시간 체크를 15초에서 2초로 변경
+      if (diff < 2) setTimeLeft(2 - diff);
     }
   }, []);
 
@@ -61,7 +62,8 @@ export default function RootWritePage() {
 
         alert('질문이 등록되었습니다!');
         localStorage.setItem('lastWriteTime', Date.now().toString());
-        setTimeLeft(30);
+        // [수정] 작성 후 대기 시간을 30초에서 2초로 변경
+        setTimeLeft(2);
         setAuthor(''); setTitle(''); setContent('');
       }
     } catch (err) {
