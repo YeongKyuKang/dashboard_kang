@@ -277,7 +277,19 @@ const styles = {
   infoValueNo: { padding: '10px', color: '#fff', fontSize: '13px', textAlign: 'center', borderBottom: '1px solid #4a9eff' },
   infoLabelDate: { backgroundColor: '#2b3974', padding: '10px', borderRight: '1px solid #4a9eff', color: '#4a9eff', fontSize: '12px', textAlign: 'center' },
   infoValueDate: { gridColumn: '2 / 5', padding: '10px', color: '#fff', fontSize: '13px' },
-  modalBody: { padding: '30px', minHeight: '200px', color: '#000', fontSize: '16px', lineHeight: '1.6', backgroundColor: '#fff' },
+  
+  // [수정] 모달 본문 스타일: 높이 제한 및 스크롤 추가
+  modalBody: { 
+    padding: '30px', 
+    minHeight: '200px', 
+    maxHeight: '60vh', // 최대 높이를 화면 높이의 60%로 제한
+    overflowY: 'auto', // 내용이 넘치면 스크롤바 표시
+    color: '#000', 
+    fontSize: '16px', 
+    lineHeight: '1.6', 
+    backgroundColor: '#fff' 
+  },
+  
   modalFooter: { backgroundColor: '#1a244d', padding: '12px', display: 'flex', justifyContent: 'flex-end', gap: '10px' },
   backBtn: { background: 'linear-gradient(to bottom, #4a5a8a 0%, #1a244d 100%)', color: '#fff', border: '1px solid #aaa', padding: '6px 25px', cursor: 'pointer', fontWeight: 'bold' }
 };
